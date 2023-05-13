@@ -1,0 +1,1086 @@
+@import './resset.css';
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+:root {
+    --container-width: 1270px;
+    --container-padding: 15px;
+    --secondary: rgba(15, 31, 28, 0.5);
+    --orange: #ff7c4e;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f6f6f6;
+    color: #0f1f1c;
+}
+
+.no-scroll {
+    overflow-y: hidden;
+}
+
+.none {
+    display: none !important;
+}
+
+/* здесь мы расчитали смещение контайнера 100% длины - длина контейнера получили смещение дольше чем нужно /2 и добавили падинги так как у первого контейнера они есть и все стало ровно. */
+.container-right {
+    padding-left: calc((100% - var(--container-width)) / 2 +var(--container-padding));
+    /* padding-left: 100px; */
+}
+
+.container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+}
+
+.header {
+    /* Дали overflow: hidden; что бы скрывалась картинка за пределами контейнера  */
+    overflow: hidden;
+    position: relative;
+    padding-top: 44px;
+    min-height: 940px;
+    background: linear-gradient(132.05deg, #428e5f -17.38%, #112120 78.4%),
+        #204434;
+    color: #ffffff;
+}
+
+/* цвет у родителя */
+.header a {
+    color: inherit;
+}
+
+/* прикручиваем картинку внизу телочки */
+.header::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    z-index: 6;
+    bottom: 0px;
+    width: 100%;
+    height: 96px;
+    background-image: url('./../img/header_bottom.svg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: bottom;
+}
+
+.header__top {
+    margin-bottom: 86px;
+}
+
+.header__row {
+    display: flex;
+}
+
+.header__content {
+    max-width: 592px;
+    position: relative;
+    z-index: 10;
+}
+
+.header__image {
+    position: relative;
+    /* при позиционировании блок img имеет о длину. Дали  flex-grow: 1; чтобы он начал растягиваться */
+    flex-grow: 1;
+}
+
+.header__image img {
+    position: absolute;
+    top: -181px;
+    right: -87px;
+    /* в обнуляющих стилях стоит max-width: 100%; картинка плющится. задали  max-width: unset; что значит не задано  */
+    max-width: unset;
+    width: 894px;
+    height: 940px;
+    /* Свойство pointer-events позволяет управлять тем, как элементы будут реагировать на события мыши или прикосновения к сенсорному экрану.
+  В данном случае картинка закрывала меню и не давала реарировать на мышь */
+    pointer-events: none;
+    z-index: 5;
+}
+
+/*  Векторные иконки на главной странице */
+.header__image::after {
+    content: '';
+    position: absolute;
+    top: -30px;
+    right: -50px;
+    width: 830px;
+    height: 622px;
+    background-image: url(./../img/header-elements.svg);
+    pointer-events: none;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 80px;
+}
+
+.nav__logo {}
+
+.nav__list {}
+
+.nav__list__item {
+    display: flex;
+    font-weight: 500;
+    font-size: 15px;
+    column-gap: 80px;
+}
+
+.nav__list__item a {
+    position: relative;
+}
+
+.nav__list__item a.active::after,
+.nav__list__item a:hover::after {
+    content: '';
+    display: block;
+    position: absolute;
+    /* width: 35px; */
+    height: 4px;
+    left: 0;
+    /* добавили для того чтобы литния всегда была меньше на 10px чем текст, при добавлении width: 35px; не нужен */
+    right: 10px;
+    bottom: -6px;
+    background: #c4c4c4;
+    border-radius: 100px;
+}
+
+.nav__login {}
+
+.nav__toggle {
+    display: none;
+}
+
+/* Рисуем крестик для меню начало------------------------------------------------------------------------------------------- */
+
+.menu-icon-wrapper {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-icon {
+    position: relative;
+    width: 30px;
+    height: 5px;
+    background-color: rgb(240, 57, 11);
+    border-radius: 50px;
+}
+
+.menu-icon.menu-icon-active {
+    background-color: transparent;
+}
+
+.menu-icon::before {
+    position: absolute;
+    content: '';
+    top: -10px;
+    left: 0;
+    width: 30px;
+    height: 5px;
+    background-color: rgb(240, 57, 11);
+    transition: transform 0.2s ease-in, top 0.2s linear 0.2s;
+    border-radius: 50px;
+}
+
+.menu-icon.menu-icon-active::before {
+    transform: rotate(45deg);
+    top: 0;
+    transition: top 0.2s linear, transform 0.2s ease-in 0.2s;
+}
+
+.menu-icon::after {
+    position: absolute;
+    content: '';
+    top: 10px;
+    left: 0;
+    width: 30px;
+    height: 5px;
+    background-color: rgb(240, 57, 11);
+    transition: transform 0.2s ease-in, top 0.2s linear 0.2s;
+    border-radius: 50px;
+    z-index: 50;
+}
+
+.menu-icon.menu-icon-active::after {
+    transform: rotate(-45deg);
+    top: 0;
+    transition: top 0.2s linear, transform 0.2s ease-in 0.2s;
+}
+
+/* Рисуем крестик для меню  конец-------------------------------------------------------------------------------------- */
+
+/* Logo */
+.logo {
+    font-weight: 700;
+    font-size: 20px;
+    color: #ffffff;
+}
+
+/* для цвета заголовка в футере  */
+.logo a {
+    color: inherit;
+}
+
+/* login */
+.nav__login {}
+
+.nav__login__list {
+    display: flex;
+    column-gap: 25px;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+/* btn */
+.btn {
+    display: inline;
+    padding: 13px 44px;
+    background: linear-gradient(129.54deg, #ff7b4e 15.57%, #ff584e 95.03%),
+        #ffffff;
+    font-weight: 500;
+    font-size: 15px;
+    border-radius: 100px;
+}
+
+.btn:hover {
+    color: rgb(200, 183, 51);
+    /* анимация с color */
+    transition: color 0.2s ease-in;
+}
+
+/* эффект прожатия */
+.btn:active {
+    position: relative;
+    top: 1px;
+}
+
+/* header  content */
+
+.header__content {}
+
+.header__badge {
+    /* чтобы блок занимал столько места сколько контент  */
+    display: inline-block;
+    /* чтобы блок занимал столько места сколько контент  */
+    font-weight: 500;
+    font-size: 18px;
+    margin: 0 0 7px 0;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 15px;
+    padding: 11px 30px;
+}
+
+.header__title {
+    font-weight: 400;
+    font-size: 55px;
+    margin: 0 0 30px 0;
+}
+
+.header__text {
+    margin: 0 0 68px 0;
+    font-weight: 700;
+    font-size: 25px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.header__btn {
+    display: inline-block;
+    font-weight: 600;
+    font-size: 25px;
+    padding: 26px 47px;
+    background: linear-gradient(129.54deg, #ff7b4e 15.57%, #ff584e 95.03%);
+    border-radius: 27px;
+}
+
+.header__btn:hover {
+    color: rgb(200, 183, 51);
+    /* анимация с color */
+    transition: color 0.2s ease-in;
+}
+
+/* эффект прожатия при клике мышки */
+.header__btn:active {
+    position: relative;
+    top: 1px;
+}
+
+/* Destinations */
+.destinations {
+    padding: 100px 0 200px 0;
+    /* скрывает слайдер который уходит вправо */
+    overflow-x: hidden;
+}
+
+.container-right {}
+
+.destinations__row {
+    display: flex;
+    column-gap: 50px;
+}
+
+.destinations__content {
+    max-width: 456px;
+}
+
+.destinations__slider {
+    width: 1110px;
+    /* не даём слайдеру сжиматься */
+    flex-shrink: 0;
+}
+
+.destinations__title {
+    font-weight: 600;
+    font-size: 55px;
+    margin: 0 0 15px 0;
+}
+
+.destinations__title span {
+    font-size: 30px;
+}
+
+.destinations__text {
+    font-weight: 500;
+    font-size: 25px;
+    margin: 0 0 60px 0;
+    color: var(--secondary);
+}
+
+.destinations__btn {
+    font-weight: 600;
+    font-size: 20px;
+    display: inline-block;
+    padding: 25px 44px;
+    background: linear-gradient(129.54deg, #ff7b4e 15.57%, #ff584e 95.03%),
+        #ffffff;
+    color: #fefefe;
+    border-radius: 100px;
+}
+
+.destinations__btn:hover {
+    color: rgb(200, 183, 51);
+    /* анимация с color */
+    transition: color 0.2s ease-in;
+}
+
+/* эффект прожатия */
+.destinations__btn:active {
+    position: relative;
+    top: 1px;
+}
+
+/* Slider */
+
+.destinations__slider {}
+
+.slider {
+    position: relative;
+    /* прописываем фиксированную высоту слайдеру потому что без неё слайдер прыгает так как слайды разной высоты. но это не очень хорошо . */
+    height: 456px;
+}
+
+.slider__item {
+    width: 335px;
+    height: 402px;
+    object-fit: cover;
+    border-radius: 35px;
+    transition: 0.2s ease-in;
+    margin: 27px 0 0 0;
+}
+
+/* прописали для .slider.center.slider__item  данную вложенность для создания увеличенной картинки с классом .center  */
+.slider .center .slider__item {
+    max-width: 380px;
+    min-height: 456px;
+    object-fit: cover;
+    border-radius: 35px;
+    margin: 0;
+}
+
+/* Slider button */
+
+.slider__btn {
+    display: block;
+    width: 68px;
+    height: 68px;
+    background: linear-gradient(129.54deg, #ff7b4e 15.57%, #ff584e 95.03%),
+        #8b8b8b;
+    border-radius: 50%;
+    /*display: flex;
+   justify-items: center;
+  align-items: center; */
+}
+
+.slider__btn--prev {
+    position: absolute;
+    top: 50%;
+    left: -27px;
+    z-index: 10;
+    transform: translateY(-50%);
+}
+
+.slider__btn--next {
+    position: absolute;
+    top: 50%;
+    right: -27px;
+    z-index: 10;
+    transform: translateY(-50%);
+}
+
+/* Сustomers */
+
+.customers {
+    padding: 100px 0 133px;
+}
+
+.container {}
+
+.customers__row {
+    display: flex;
+
+    column-gap: 68px;
+}
+
+.containers_image {
+    max-width: 478px;
+}
+
+.containers_image img {
+    border-radius: 35px;
+}
+
+.containers_content {}
+
+.customers__title {
+    font-weight: 500;
+    font-size: 45px;
+    margin: 0 0 35px 0;
+}
+
+/* Riview */
+
+.riview {
+    max-width: 490px;
+}
+
+.riview__client {
+    margin: 0 0 60px 0;
+    display: flex;
+    align-items: center;
+    column-gap: 33px;
+}
+
+.riview__client-avatar {
+    width: 134px;
+    height: 134px;
+    border-radius: 50%;
+    background-color: #ff794e;
+    overflow: hidden;
+}
+
+.riview__client-desk {}
+
+.riview__client-desk-name {
+    font-weight: 500;
+    font-size: 33px;
+    margin: 0 0 10px 0;
+}
+
+.riview__client-desk-country {
+    font-weight: 400;
+    font-size: 25px;
+    color: var(--secondary);
+}
+
+.riview__text {
+    font-weight: 500;
+    font-size: 22px;
+    color: var(--secondary);
+    margin: 0 0 30px 0;
+}
+
+.riview__raiting {
+    display: inline-block;
+    max-width: 327px;
+}
+
+/* STA */
+.sta {
+    padding: 144px 0;
+}
+
+.container {}
+
+.cta__plate {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    border-radius: 60px;
+    min-height: 580px;
+    padding: 60px 15px;
+}
+
+.cta__plate::before {
+    position: absolute;
+    display: block;
+    content: '';
+    width: 63px;
+    height: 83px;
+    background-image: url(/img/cta-el-01.svg);
+    top: 83px;
+    right: 80px;
+}
+
+.cta__plate::after {
+    position: absolute;
+    display: block;
+    content: '';
+    width: 63px;
+    height: 83px;
+    background-image: url(/img/cta-el-02.svg);
+    left: 74px;
+    bottom: 47px;
+}
+
+.sta__title {
+    font-weight: 500;
+    font-size: 45px;
+    margin: 0 0 30px 0;
+}
+
+.sta__text {
+    font-weight: 400;
+    font-size: 30px;
+    color: var(--secondary);
+    margin: 0 0 60px 0;
+}
+
+.sta__button {
+    font-weight: 600;
+    font-size: 20px;
+    padding: 25px 54px;
+    background: linear-gradient(129.54deg, #ff7b4e 15.57%, #ff584e 95.03%);
+    border-radius: 27px;
+    color: #ffffff;
+}
+
+.sta__button:hover {
+    color: rgb(200, 183, 51);
+    /* анимация с color */
+    transition: color 0.2s ease-in;
+}
+
+/* эффект прожатия */
+.sta__button:active {
+    position: relative;
+    top: 1px;
+}
+
+/* Subscribe  */
+
+.container {}
+
+.subscribe__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.subscribe__title {
+    max-width: 494px;
+    font-weight: 600;
+    font-size: 55px;
+    margin: 0 0 60px 0;
+}
+
+.subscribe__form {
+    max-width: 800px;
+    background: linear-gradient(0deg, #ffffff, #ffffff), #c4c4c4;
+    border-radius: 35px;
+    margin: 0 0 106px 0;
+    padding: 12px 15px 12px 46px;
+    display: flex;
+    column-gap: 137px;
+}
+
+.subscribe__form__input {
+    font-weight: 500;
+    font-size: 24px;
+}
+
+.subscribe__form__input::placeholder {
+    color: var(--secondary);
+}
+
+.subscribe__form__btn {
+    display: inline-block;
+    padding: 34px 87px;
+    background: linear-gradient(129.54deg, #ff7b4e 15.57%, #ff584e 95.03%),
+        #ffffff;
+    border-radius: 35px;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 25px;
+}
+
+.subscribe__form__btn:hover {
+    color: rgb(200, 183, 51);
+    /* анимация с color */
+    transition: color 0.2s ease-in;
+}
+
+/* эффект прожатия */
+.subscribe__form__btn:active {
+    position: relative;
+    top: 1px;
+}
+
+/* Footer */
+
+.footer {
+    padding: 0 0 74px 0;
+    color: rgba(15, 31, 28, 0.5);
+}
+
+.nav__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 80px;
+}
+
+.logo__footer {
+    font-weight: 700;
+    font-size: 20px;
+    color: #ffffff;
+}
+
+.logo__footer a {
+    color: var(--orange);
+}
+
+.btn__footer__login a {}
+
+.nav__list__footer a,
+.nav__login__singup a {
+    color: inherit;
+}
+
+.nav__list__footer a.active::after,
+.nav__list__footer a:hover::after {
+    display: none;
+}
+
+.nav__list__footer {}
+
+.nav__list__item__footer {
+    display: flex;
+    column-gap: 80px;
+}
+
+.nav__list__footer a.active,
+.nav__list__footer a:hover {
+    color: var(--orange);
+}
+
+.nav__login__list__singup {
+    display: flex;
+}
+
+.btn__footer {
+    color: #fefefe !important;
+    margin: 0 0 0 40px;
+}
+
+.btn__footer:hover {
+    color: rgb(200, 183, 51) !important;
+    /* анимация с color */
+    transition: color 0.2s ease-in;
+}
+
+/* эффект прожатия */
+.btn__footer:active {
+    position: relative;
+    top: 1px;
+}
+
+/* Media */
+
+@media (max-width: 1269px) {
+    .container-right {
+        padding-left: 15px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .destinations__slider {
+        max-width: 900px;
+    }
+}
+
+@media (max-width: 999px) {
+    .nav {
+        /* display: none; */
+    }
+
+    .nav__mobile .nav {
+        display: flex;
+        justify-content: none;
+    }
+
+    .nav__mobile .nav__logo .logo {
+        font-size: 34px;
+    }
+
+    .nav__list {
+        display: none;
+    }
+
+    .nav__mobile .nav__list {
+        display: flex;
+    }
+
+    .nav__mobile .nav__list__item {
+        flex-direction: column;
+        row-gap: 30px;
+        font-size: 28px;
+    }
+
+    .nav__login {
+        display: none;
+    }
+
+    .nav__mobile .nav__login {
+        display: flex;
+    }
+
+    .nav__login__list {
+        flex-direction: column;
+        align-items: center;
+        row-gap: 30px;
+        font-size: 28px;
+    }
+
+    .nav__toggle {
+        display: block;
+        position: fixed;
+        right: 40px;
+        top: 40px;
+        z-index: 50;
+    }
+
+    .nav__mobile {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 99;
+        padding: 40px 0 40px 0;
+        flex-direction: column;
+        background: linear-gradient(132.05deg, #428e5f -17.38%, #112120 78.4%),
+            #204434;
+    }
+
+    .nav__list__item a.active::after,
+    .nav__list__item a:hover::after {
+        display: none;
+    }
+
+    .header__image img {
+        right: -256px;
+    }
+
+    .header__image::after {
+        right: -30px;
+    }
+
+    .destinations__row {
+        flex-direction: column;
+        align-items: center;
+        row-gap: 20px;
+    }
+
+    .slider__btn--prev,
+    .slider__btn--next {
+        display: none;
+    }
+
+    .destinations {
+        padding: 30px 0 80px 0;
+        overflow-x: hidden;
+    }
+
+    .destinations__content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+        flex-wrap: nowrap;
+    }
+
+    .container-right {
+        padding: 0;
+    }
+
+    .nav__list__item__footer {
+        flex-direction: column;
+        row-gap: 20px;
+    }
+
+    .nav__login__list__singup {
+        flex-direction: column;
+        row-gap: 20px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .btn__footer {
+        margin: 0;
+    }
+}
+
+@media (max-width: 850px) {
+    .header__row {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .header__btn {}
+
+    .header__image img {
+        width: 480px;
+        height: 480px;
+    }
+
+    .header__badge {}
+
+    .header__image::after {
+        right: -140px;
+        top: -228px;
+    }
+
+    .header__image img {
+        position: static;
+    }
+
+    .header__title {
+        font-size: 44px;
+        margin: 0 0 15px 0;
+    }
+
+    .header__text {
+        margin: 0 0 30px 0;
+        font-size: 16px;
+    }
+
+    .header__btn {
+        font-size: 20px;
+        padding: 18px 40px;
+    }
+
+    .destinations__title {
+        display: flex;
+        flex-direction: column;
+        font-size: 45px;
+    }
+
+    .customers {
+        padding: 20px 0 30px;
+    }
+
+    .customers__row {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        row-gap: 20px;
+        max-width: 100%;
+    }
+
+    .containers_content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .customers__title {
+        text-align: center;
+        font-size: 42px;
+        margin: 0 0 15px 0;
+    }
+
+    .sta {
+        padding: 80px 0;
+    }
+
+    .subscribe__form {
+        column-gap: 0;
+    }
+
+    .subscribe__form {
+        flex-direction: column;
+        padding: 12px 15px;
+    }
+
+    .subscribe__form__input {
+        margin: 0 0 25px 0;
+        text-align: center;
+        border: 1px solid rgba(148, 141, 141, 0.5);
+        border-radius: 35px;
+        font-size: 18px;
+    }
+
+    .subscribe__form__btn {
+        padding: 14px 87px;
+    }
+
+    .nav__footer {
+        column-gap: 0;
+    }
+
+    .nav__list__item__footer {}
+}
+
+@media (max-width: 425px) {
+    .header__top {
+        margin-bottom: 30px;
+    }
+
+    .header__title {
+        font-size: 40px;
+    }
+
+    .destinations__title span {
+        font-size: 19px;
+    }
+
+    .destinations__title {
+        display: flex;
+        flex-direction: column;
+        font-size: 40px;
+        margin: 0;
+    }
+
+    .destinations__text {
+        font-size: 20px;
+    }
+
+    .destinations__btn {
+        font-size: 14px;
+        padding: 19px 33px;
+    }
+
+    .customers__title {
+        font-size: 24px;
+        margin: 0 0 15px 0;
+    }
+
+    .riview__client {
+        margin: 0 0 20px 0;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .riview__client-desk {
+        text-align: center;
+    }
+
+    .riview__text {
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .sta__title {
+        font-size: 30px;
+        margin: 0 0 15px 0;
+    }
+
+    .cta__plate {
+        min-height: 320px;
+        padding: 40px 15px;
+    }
+
+    .sta__text {
+        font-size: 18px;
+    }
+
+    .cta__plate::before {
+        top: 10px;
+        right: 20px;
+    }
+
+    .cta__plate::after {
+        left: 10px;
+        bottom: 20px;
+    }
+
+    .sta__button {
+        font-size: 20px;
+        padding: 20px 40px;
+    }
+
+    .subscribe__title {
+        font-size: 40px;
+        margin: 0 0 20px 0;
+    }
+
+    .nav__login__singup {
+        display: none;
+    }
+
+    .nav__footer {
+        flex-direction: column-reverse;
+        row-gap: 20px;
+    }
+
+    .nav__list__item__footer {
+        display: flex;
+        flex-direction: row;
+        column-gap: 10px;
+    }
+}
+
+@media (max-width: 320px) {
+    .sta__title {
+        font-size: 22px;
+        margin: 0 0 15px 0;
+    }
+
+    .subscribe__title {
+        font-size: 30px;
+    }
+
+    .destinations__title {
+        font-size: 30px;
+    }
+
+    .header__badge {
+        font-size: 12px;
+    }
+
+    .header__title {
+        font-size: 34px;
+    }
+
+    .header__image img {
+        width: 339px;
+        height: 339px;
+    }
+
+    .header {
+        min-height: 858px;
+    }
+}
