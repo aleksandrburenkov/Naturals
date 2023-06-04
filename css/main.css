@@ -534,7 +534,7 @@ body {
     content: '';
     width: 63px;
     height: 83px;
-    background-image: url(/img/cta-el-01.svg);
+    background-image: url(../img/cta-el-01.svg);
     top: 83px;
     right: 80px;
 }
@@ -545,7 +545,7 @@ body {
     content: '';
     width: 63px;
     height: 83px;
-    background-image: url(/img/cta-el-02.svg);
+    background-image: url(../img/cta-el-02.svg);
     left: 74px;
     bottom: 47px;
 }
